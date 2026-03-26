@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security & Compliance | Labezra Technologies Documentation</title>
+    <meta name="description"
+        content="Security standards, compliance, and best practices for Labezra solutions. Enterprise-grade security architecture.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://labezra.com/security.html">
+    <link rel="icon" href="./images/labezra.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-base: #030303;
+            --accent: #00B4D8;
+            --text-main: #FFFFFF;
+            --text-muted: #999999;
+            --font-main: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: none !important
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+            cursor: none !important
+        }
+
+        button {
+            cursor: none !important
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 3, 3, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s
+        }
+
+        #mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            display: flex
+        }
+
+        .mobile-menu-content {
+            text-align: center
+        }
+
+        .mobile-menu-content a {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin: 1.5rem 0;
+            font-weight: 500;
+            transition: color 0.3s
+        }
+
+        .mobile-menu-content a:hover {
+            color: var(--accent)
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--text-main);
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer
+        }
+
+        .glass-navbar {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            height: 70px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.05)
+        }
+
+        .glass-navbar .logo {
+            display: flex;
+            align-items: center
+        }
+
+        .glass-navbar .logo img {
+            height: 70px;
+            object-fit: contain;
+            filter: brightness(0)invert(1);
+            animation: logoPulse 5s ease-in-out infinite
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                filter: brightness(0)invert(1)drop-shadow(0 0 0 transparent)
+            }
+
+            50% {
+                filter: brightness(0)invert(1)drop-shadow(0 0 14px rgba(0, 180, 216, 0.7))
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-main);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5)
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer
+        }
+
+        .liquid-btn {
+            position: relative;
+            padding: 0.8rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            background: rgba(0, 180, 216, 0.15);
+            border: 1px solid rgba(0, 180, 216, 0.4);
+            border-radius: 50px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition)
+        }
+
+        .liquid-btn:hover {
+            background: rgba(0, 180, 216, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 180, 216, 0.4);
+            transform: translateY(-2px)
+        }
+
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            mix-blend-mode: difference;
+            transition: transform 0.15s ease-out;
+            transform: translate(-50%, -50%)
+        }
+
+        .cursor-hover {
+            transform: translate(-50%, -50%)scale(4)
+        }
+
+        .docs-header {
+            padding: 10rem 0 6rem;
+            text-align: center;
+            position: relative
+        }
+
+        .docs-header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0 0 1.5rem;
+            font-weight: 600;
+            line-height: 1.2
+        }
+
+        .docs-header p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto
+        }
+
+        .docs-content {
+            padding: 4rem 0;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+        }
+
+        .content-section:last-child {
+            border-bottom: none
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            margin: 0 0 1.5rem;
+            color: var(--accent)
+        }
+
+        .content-section h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            font-weight: 600
+        }
+
+        .content-section p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin: 0 0 1.5rem
+        }
+
+        .content-section ul,
+        .content-section ol {
+            color: var(--text-muted);
+            line-height: 2;
+            margin: 0 0 1.5rem 2rem
+        }
+
+        .content-section li {
+            margin-bottom: 0.8rem
+        }
+
+        .sec-box {
+            background: rgba(0, 180, 216, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem
+        }
+
+        .sec-box h4 {
+            color: var(--accent);
+            margin: 0 0 0.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem
+        }
+
+        .sec-box p {
+            margin: 0;
+            color: var(--text-muted)
+        }
+
+        .cta-footer {
+            margin-top: 4rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.1), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 1rem;
+            text-align: center
+        }
+
+        .cta-footer h3 {
+            margin: 0 0 1rem
+        }
+
+        .cta-footer a {
+            display: inline-block;
+            margin: 0 0.5rem
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem
+        }
+
+        .footer-brand img {
+            height: 40px;
+            margin-bottom: 1.5rem
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0 0 1.5rem;
+            line-height: 1.8
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 180, 216, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 180, 216, 0.3)
+        }
+
+        .social-links a:hover {
+            background: rgba(0, 180, 216, 0.3);
+            transform: translateY(-3px)
+        }
+
+        .footer-col h4 {
+            margin: 0 0 1.5rem;
+            font-size: 1rem
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0
+        }
+
+        .footer-col li {
+            margin-bottom: 0.8rem
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: var(--transition)
+        }
+
+        .footer-col a:hover {
+            color: var(--accent)
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        @media(max-width:992px) {
+            .nav-links {
+                display: none
+            }
+
+            .mobile-menu-btn {
+                display: block
+            }
+
+            .glass-navbar {
+                width: 95%;
+                padding: 0 1.5rem
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem
+            }
+
+            .docs-header {
+                padding: 8rem 0 4rem
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center
+            }
+        }
+
+        /* =========================
+   BLACK OVERLAY (NO GLOW)
+========================= */
+
+        #preload-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            /* PURE BLACK */
+            z-index: 9999;
+
+            opacity: 1;
+            pointer-events: none;
+
+            transition: opacity 0.6s ease;
+        }
+
+        #preload-overlay.hide {
+            opacity: 0;
+        }
+
+
+        /* =========================
+   SUBTLE ZOOM ONLY (NO BLUR)
+========================= */
+
+        body {
+            transform: scale(1.015);
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body.loaded {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preload-overlay"></div>
+    <div id="custom-cursor"></div>
+    <div class="bg-noise"></div>
+    <div id="mobile-menu"><button class="mobile-menu-close" onclick="toggleMobileMenu()"><i
+                class="fa-solid fa-xmark"></i></button>
+        <div class="mobile-menu-content"><a href="index.html" onclick="toggleMobileMenu()">Home</a><a
+                href="index.html#about" onclick="toggleMobileMenu()">About Us</a><a href="services.html"
+                onclick="toggleMobileMenu()">Services</a><a href="docs.html" onclick="toggleMobileMenu()">Docs</a><a
+                href="contact.html" class="liquid-btn" style="margin-top:2rem;" onclick="toggleMobileMenu()">Contact
+                Us</a></div>
+    </div>
+    <header class="glass-navbar"><a href="index.html" class="logo"><img src="./images/labezra.png" alt="Labezra"></a>
+        <nav class="nav-links"><a href="index.html">Home</a><a href="index.html#about">About Us</a><a
+                href="services.html">Services</a><a href="docs.html">Docs</a></nav>
+        <div style="display:flex;gap:1rem;align-items:center;"><a href="contact.html" class="liquid-btn">Contact
+                Us</a><button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i
+                    class="fa-solid fa-bars"></i></button></div>
+    </header>
+    <div class="docs-header">
+        <div class="container">
+            <h1>Security & Compliance</h1>
+            <p>Enterprise-grade security standards, compliance requirements, and best practices for Labezra solutions.
+            </p>
+        </div>
+    </div>
+    <div class="docs-content">
+        <div class="container">
+            <div class="content-section">
+                <h2>Security Architecture</h2>
+                <p>Labezra implements multi-layered security architecture designed to protect your systems, data, and
+                    infrastructure from threats.</p>
+                <div class="sec-box">
+                    <h4><i class="fa-solid fa-shield"></i> Physical Security</h4>
+                    <p>Secure facility access, video surveillance, perimeter monitoring, and environmental controls.</p>
+                </div>
+                <div class="sec-box">
+                    <h4><i class="fa-solid fa-lock"></i> Network Security</h4>
+                    <p>Firewalls, intrusion detection/prevention, VPNs, encrypted communications, and network
+                        segmentation.</p>
+                </div>
+                <div class="sec-box">
+                    <h4><i class="fa-solid fa-key"></i> Access Control</h4>
+                    <p>Biometric authentication, role-based access control (RBAC), multi-factor authentication, and
+                        audit logging.</p>
+                </div>
+                <div class="sec-box">
+                    <h4><i class="fa-solid fa-database"></i> Data Security</h4>
+                    <p>Encryption at rest and in transit, secure data handling, backup systems, and disaster recovery.
+                    </p>
+                </div>
+            </div>
+            <div class="content-section">
+                <h2>Compliance Standards</h2>
+                <p>Our systems comply with international security and industry standards:</p>
+                <ul>
+                    <li><strong>ISO 27001</strong> - Information Security Management</li>
+                    <li><strong>ISO 9001</strong> - Quality Management Systems</li>
+                    <li><strong>UAE Local Security Standards</strong> - Regulatory requirements for the region</li>
+                    <li><strong>GDPR</strong> - General Data Protection Regulation compliance</li>
+                    <li><strong>Encryption Standards</strong> - AES-256, TLS 1.3, RSA-4096</li>
+                </ul>
+            </div>
+            <div class="content-section">
+                <h2>Data Protection</h2>
+                <h3>Encryption</h3>
+                <p>All sensitive data is encrypted using industry-standard algorithms:</p>
+                <ul>
+                    <li>AES-256 encryption for data at rest</li>
+                    <li>TLS 1.3 encryption for data in transit</li>
+                    <li>Secure key management and rotation</li>
+                    <li>Hardware security modules (HSM) for critical keys</li>
+                </ul>
+                <h3>Backup & Recovery</h3>
+                <p>Comprehensive backup strategies ensure data availability and recoverability:</p>
+                <ul>
+                    <li>Automated daily backups with redundancy</li>
+                    <li>Off-site backup storage</li>
+                    <li>Regular backup restoration testing</li>
+                    <li>Recovery time objective (RTO) of 4 hours</li>
+                    <li>Recovery point objective (RPO) of 1 hour</li>
+                </ul>
+            </div>
+            <div class="content-section">
+                <h2>Monitoring & Incident Response</h2>
+                <p>Continuous monitoring and rapid response to security incidents:</p>
+                <ul>
+                    <li>24/7 Security Operations Center (SOC) monitoring</li>
+                    <li>Real-time threat detection and alerting</li>
+                    <li>Incident response team on standby</li>
+                    <li>Security incident reporting and documentation</li>
+                    <li>Regular security audits and penetration testing</li>
+                </ul>
+            </div>
+            <div class="content-section">
+                <h2>User Security</h2>
+                <ul>
+                    <li>Secure authentication with multi-factor options</li>
+                    <li>Password policies and enforcement</li>
+                    <li>Session management and timeout controls</li>
+                    <li>Activity logging and audit trails</li>
+                    <li>Security awareness training for all users</li>
+                </ul>
+            </div>
+            <div class="cta-footer">
+                <h3>Security Questions?</h3>
+                <p style="color:var(--text-muted);margin-bottom:1.5rem;">Contact our security team for detailed
+                    compliance reports and security documentation.</p><a href="contact.html" class="liquid-btn">Contact
+                    Security Team</a><a href="docs.html" class="liquid-btn liquid-btn-secondary"
+                    style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.2);">Back to
+                    Documentation</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><img src="./images/labezra.png" alt="Labezra"
+                        style="height:40px;filter:brightness(0)invert(1);">
+                    <p>Navy Gate - 3rd Floor, Office # 305<br>Sheikh Zayed Bin Sultan St<br>Opp. Abu Dhabi
+                        Municipality<br>Abu Dhabi, UAE</p>
+                    <div class="social-links"><a href="https://www.instagram.com/labezra"><i
+                                class="fa-brands fa-instagram"></i></a><a href="https://x.com/LabezraUAE"><i
+                                class="fa-brands fa-x-twitter"></i></a><a
+                            href="https://www.linkedin.com/company/labezra-technologies"><i
+                                class="fa-brands fa-linkedin-in"></i></a></div>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">IT Solutions</a></li>
+                        <li><a href="services.html">ELV Systems</a></li>
+                        <li><a href="services.html">Security & CCTV</a></li>
+                        <li><a href="services.html">Software Development</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="tel:+971569556676">+971-56-955-6676</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 Labezra Technologies LLC. All rights reserved.</div>
+                <div><a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a
+                        href="terms-conditions.html">Terms & Conditions</a></div>
+            </div>
+        </div>
+    </footer>
+    <script>
+
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('active') }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape')
+                document.getElementById('mobile-menu').classList.remove('active')
+        });
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove',
+            (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px' });
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter',
+                () => cursor.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'))
+        });
+        document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%, -50%) scale(3)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+
+    </script>
+    <script>
+        window.addEventListener("load", function () {
+            const overlay = document.getElementById("preload-overlay");
+
+            // trigger zoom settle
+            document.body.classList.add("loaded");
+
+            // fade out black overlay
+            setTimeout(() => {
+                overlay.classList.add("hide");
+            }, 100);
+
+            // remove overlay completely
+            setTimeout(() => {
+                overlay.remove();
+            }, 700);
+        });
+    </script>
+</body>
+
+</html>

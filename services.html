@@ -732,6 +732,16 @@
             background: rgba(255, 255, 255, 0.3);
             color: #ffffff;
         }
+        
+        @media (pointer: coarse) {
+            #custom-cursor {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
         </style>
 </head>
 
@@ -912,6 +922,7 @@
         revealElements.forEach(el => revealOnScroll.observe(el));
 
         // Custom Cursor
+        if (!window.matchMedia('(pointer: coarse)').matches) {
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
@@ -965,7 +976,7 @@
         let mouseY = window.innerHeight / 2;
         let ringX  = mouseX;
         let ringY  = mouseY;
-        const SPEED = 0.12; // 0 = never catches, 1 = instant (0.1–0.15 feels best)
+        const SPEED = 0.25; // 0 = never catches, 1 = instant (0.1–0.15 feels best)
 
         document.addEventListener('mousemove', function(e) {
             mouseX = e.clientX;

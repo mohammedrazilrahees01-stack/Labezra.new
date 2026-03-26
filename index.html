@@ -770,6 +770,23 @@
             transform: translate(-50%, -50%);
         }
 
+
+        /* ── Cursor Ring (chases dot) ── */
+        #cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            will-change: left, top;
+        }
+        @media (pointer: coarse) {
+            #cursor-ring { display: none !important; }
+        }
         .cursor-hover {
             transform: translate(-50%, -50%) scale(2);
         }
@@ -1088,12 +1105,23 @@
         }
 
         
-    </style>
+    
+        /* Text selection color */
+        ::selection {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        ::-moz-selection {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        </style>
 </head>
 
 <body>
     <div id="preload-overlay"></div>
     <div id="custom-cursor"></div>
+    <div id="cursor-ring"></div>
     <div class="bg-noise"></div>
     <svg style="display:none;">
         <filter id="distortion">
@@ -1626,6 +1654,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
+    <script>
+    // ── Cursor Ring: smooth chase via rAF lerp ──
+    (function() {
+        const isTouchOnly = window.matchMedia('(pointer: coarse)').matches;
+        if (isTouchOnly) return;
+
+        const ring = document.getElementById('cursor-ring');
+        if (!ring) return;
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX  = mouseX;
+        let ringY  = mouseY;
+        const SPEED = 0.12; // 0 = never catches, 1 = instant (0.1–0.15 feels best)
+
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateRing() {
+            ringX += (mouseX - ringX) * SPEED;
+            ringY += (mouseY - ringY) * SPEED;
+            ring.style.left = ringX + 'px';
+            ring.style.top  = ringY + 'px';
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+    })();
+    </script>
 </body>
 
 </html>

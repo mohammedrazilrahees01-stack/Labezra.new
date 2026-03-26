@@ -99,18 +99,19 @@
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            cursor: none !important;
+            cursor: none;
+        
         }
 
         a {
             text-decoration: none;
             color: inherit;
             transition: var(--transition);
-            cursor: none !important;
+            cursor: none;
         }
 
         button {
-            cursor: none !important;
+            cursor: none  ;
         }
 
         img {
@@ -126,7 +127,7 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 1;
             opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
@@ -212,7 +213,7 @@
             font-size: 2rem;
             cursor: pointer;
             color: var(--text-main);
-            cursor: none !important;
+            cursor: none  ;
             background: none;
             border: none;
             padding: 0;
@@ -253,7 +254,6 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            border: 1.5px solid rgba(0, 180, 216, 0);
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
@@ -262,10 +262,9 @@
         }
 
         .glass-navbar .logo:hover::before {
-            border-color: rgba(0, 180, 216, 0.5);
             width: 76px;
             height: 76px;
-            box-shadow: 0 0 20px rgba(0, 180, 216, 0.25), inset 0 0 20px rgba(0, 180, 216, 0.08);
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.25),
         }
 
         .glass-navbar .logo img {
@@ -289,9 +288,9 @@
         }
 
         .glass-navbar .logo img:hover {
-            filter: drop-shadow(0 0 18px rgba(0, 180, 216, 0.95)) drop-shadow(0 0 36px rgba(0, 180, 216, 0.4)) !important;
+            filter: drop-shadow(0 0 18px rgba(0, 180, 216, 0.95)) drop-shadow(0 0 36px rgba(0, 180, 216, 0.4))  ;
             transform: scale(1.08);
-            animation: none !important;
+            animation: none  ;
         }
 
         .nav-links {
@@ -315,7 +314,7 @@
         .mobile-menu-btn {
             display: none;
             font-size: 1.5rem;
-            cursor: none !important;
+            cursor: none  ;
             color: var(--text-main);
             background: none;
             border: none;
@@ -332,7 +331,7 @@
             background: rgba(0, 180, 216, 0.15);
             border: 1px solid rgba(0, 180, 216, 0.4);
             border-radius: 50px;
-            cursor: none !important;
+            cursor: none  ;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
             display: inline-flex;
             align-items: center;
@@ -472,13 +471,13 @@
 
         /* FIX: Prevent card overflow on mobile */
         .swiper-wrapper {
-            overflow: visible !important;
+            overflow: visible  ;
         }
 
         .swiper {
-            padding: 20px 0 60px 0 !important;
-            margin: 0 !important;
-            overflow: visible !important;
+            padding: 20px 0 60px 0  ;
+            margin: 0  ;
+            overflow: visible  ;
         }
 
         .swiper-slide {
@@ -718,7 +717,7 @@
             justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: var(--transition);
-            cursor: none !important;
+            cursor: none  ;
         }
 
         .social-links a:hover {
@@ -738,7 +737,7 @@
         .footer-col ul a {
             color: var(--text-muted);
             transition: var(--transition);
-            cursor: none !important;
+            cursor: none  ;
         }
 
         .footer-col ul a:hover {
@@ -754,24 +753,25 @@
             font-size: 0.875rem;
         }
 
-        /* CUSTOM CURSOR */
         #custom-cursor {
             position: fixed;
-            top: 0;
-            left: 0;
+
             width: 20px;
             height: 20px;
-            background-color: white;
+            background: white;
+
             border-radius: 50%;
             pointer-events: none;
             z-index: 99999;
+
             mix-blend-mode: difference;
-            transition: transform 0.15s ease-out;
+
+            /* 🔥 KEY CHANGE */
             transform: translate(-50%, -50%);
         }
 
         .cursor-hover {
-            transform: translate(-50%, -50%) scale(4);
+            transform: translate(-50%, -50%) scale(2);
         }
 
         /* RESPONSIVE DESIGN */
@@ -1051,9 +1051,9 @@
         }
 
         .error {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
+            display: none  ;
+            visibility: hidden  ;
+            opacity: 0  ;
         }
 
         /* =========================
@@ -1077,19 +1077,17 @@
             opacity: 0;
         }
 
+        @media (pointer: coarse) {
+            #custom-cursor {
+                display: none;
+            }
 
-        /* =========================
-   SUBTLE ZOOM ONLY (NO BLUR)
-========================= */
-
-        body {
-            transform: scale(1.015);
-            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            body {
+                cursor: auto  ;
+            }
         }
 
-        body.loaded {
-            transform: scale(1);
-        }
+        
     </style>
 </head>
 
@@ -1590,30 +1588,6 @@
         }, { threshold: 0.5 });
         counters.forEach(counter => counterObserver.observe(counter));
 
-        // Custom Cursor
-        const cursor = document.getElementById('custom-cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        const interactables = document.querySelectorAll('a, button, .liquid-btn, input, textarea');
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('cursor-hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('cursor-hover');
-            });
-        });
-
-        // Click animation for cursor
-        document.addEventListener('click', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(3)';
-            setTimeout(() => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            }, 150);
-        });
     </script>
     <script>
         window.addEventListener("load", function () {
@@ -1632,7 +1606,26 @@
                 overlay.remove();
             }, 700);
         });
+
+
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Disable on mobile
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.getElementById("custom-cursor");
+    if (!cursor) return;
+
+    // 🔥 ONLY REAL-TIME TRACKING (NO RAF, NO SCROLL LISTENER)
+    document.addEventListener("mousemove", function (e) {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+    });
+
+});
+</script>
 </body>
 
 </html>

@@ -191,7 +191,7 @@
         }
 
         .glass-navbar .logo img {
-            height: 70px;
+            height: 112px;
             object-fit: contain;
             filter: brightness(0) invert(1);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -545,11 +545,10 @@
         
         @media (pointer: coarse) {
             #custom-cursor {
-                display: none;
+                display: none !important;
             }
-
             body {
-                cursor: auto;
+                cursor: auto !important;
             }
         }
         </style>
@@ -733,7 +732,6 @@
     <script>
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('active'); }
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.getElementById('mobile-menu').classList.remove('active'); });
-        if (!window.matchMedia('(pointer: coarse)').matches) {
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
         document.querySelectorAll('a, button').forEach(el => {

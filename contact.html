@@ -218,7 +218,7 @@
             content: '';
             position: absolute;
             width: 56px;
-            height: 56px;
+            height: 90px;
             border-radius: 50%;
             border: 1.5px solid rgba(0, 180, 216, 0);
             left: 50%;
@@ -231,12 +231,12 @@
         .glass-navbar .logo:hover::before {
             border-color: rgba(0, 180, 216, 0.5);
             width: 76px;
-            height: 76px;
+            height: 122px;
             box-shadow: 0 0 20px rgba(0, 180, 216, 0.25), inset 0 0 20px rgba(0, 180, 216, 0.08);
         }
 
         .glass-navbar .logo img {
-            height: 70px;
+            height: 112px;
             object-fit: contain;
             filter: brightness(0) invert(1);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -618,7 +618,7 @@
             }
 
             .glass-navbar .logo img {
-                height: 50px;
+                height: 80px;
             }
 
             .contact-section {
@@ -711,11 +711,10 @@
         
         @media (pointer: coarse) {
             #custom-cursor {
-                display: none;
+                display: none !important;
             }
-
             body {
-                cursor: auto;
+                cursor: auto !important;
             }
         }
         </style>
@@ -889,7 +888,6 @@
         });
 
         // Custom Cursor
-        if (!window.matchMedia('(pointer: coarse)').matches) {
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';

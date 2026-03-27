@@ -159,7 +159,7 @@
         }
 
         .glass-navbar .logo img {
-            height: 70px;
+            height: 112px;
             object-fit: contain;
             filter: brightness(0)invert(1);
             animation: logoPulse 5s ease-in-out infinite
@@ -526,11 +526,10 @@
         
         @media (pointer: coarse) {
             #custom-cursor {
-                display: none;
+                display: none !important;
             }
-
             body {
-                cursor: auto;
+                cursor: auto !important;
             }
         }
         </style>
@@ -676,7 +675,6 @@
         }
         document.addEventListener('keydown',
             (e) => { if (e.key === 'Escape') document.getElementById('mobile-menu').classList.remove('active') });
-        if (!window.matchMedia('(pointer: coarse)').matches) {
         const cursor = document.getElementById('custom-cursor'); document.addEventListener('mousemove',
             (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px' });
         document.querySelectorAll('a, button').forEach(el => {
